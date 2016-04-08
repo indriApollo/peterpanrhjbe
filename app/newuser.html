@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=0.5">
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="js/api.js"></script>
+		<script type="text/javascript" src="js/shared.js"></script>
+		<script type="text/javascript">
+			function saveSessionNewUser() {
+				var token = saveSessionToken();
+				var utitle = document.getElementById("utitle").value;
+				var uname = document.getElementById("uname").value.trim();
+				api.newUser(utitle,uname,token, function(r) {
+					sessionStorage.setItem("uid",r.uid);
+					sessionStorage.setItem("uname",r.uname);
+					sessionStorage.setItem("utitle",r.utitle);
+					sessionStorage.setItem("email",r.email);
+					window.location.href = "index.html";
+				});
+			}
+		</script>
+		<title>Nouvel utilisateur</title>
+	</head>
+	<body>
+		<div id="topmenu">
+			<div class="logincnt">
+				<div id="loginp">
+					<p>Nouvel Utilisateur</p>
+				</div>
+				<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+			</div>
+		</div>
+		<div id="main">
+			<div class="newuser-form">
+				<p>Nom & prénom</p>
+				<input type="text" id="uname">
+				<p>Civilité</p>
+				<select id="utitle">
+					<option value="0">M.</option>
+					<option value="1">Mme</option>
+				</select>
+				<br/>
+				<button onclick="saveSessionNewUser()">Continuer</button>
+			</div>
+		</div>
+	</body>
+</html>

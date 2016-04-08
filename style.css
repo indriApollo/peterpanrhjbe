@@ -1,0 +1,44 @@
+
+p,h1,button,a,li {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.center {
+	margin: auto;
+	width: 300px;
+	margin-top: 5vh;
+}
+
+input {
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+input[type=submit] {
+	width: calc(100% + 4px);
+}
+
+p {
+	text-align: center;
+}
+
+#errorbox, .infobox {
+	padding: 10px;
+	color: white;
+	border-radius: 5px;	
+	margin-bottom: 15px;
+}
+
+#errorbox {
+	background-color: red;
+	border: 2px solid #96281B;
+}
+
+.infobox {
+	background-color: #F4D03F;
+	border: 2px solid #F7CA18;
+}
+
+.sofort {
+	margin-top: 100px;
+}

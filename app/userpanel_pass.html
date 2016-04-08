@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+		function object() {
+			var pass = document.getElementById("pass");
+			var login = sessionStorage.getItem("email");
+			var obj = document.createElement("object");
+			obj.className = "frame"
+			obj.setAttribute("data","/session.php?p=changepass&login="+login);
+			obj.textContent = "Votre navigateur ne prend pas en charge les objets html";
+			pass.appendChild(obj);
+		}
+	</script>
+	<title>Panneau d'utilisateur | Changement mot de passe</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(true)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="leftmenu">
+			<ul id="menul">
+				<li><a href="userpanel_reservations.html">Réservations</a></li>
+				<li><a href="userpanel_details.html">Détails</a></li>
+				<li><b><a href="userpanel_pass.html">Mot de passe</a></b></li>
+				<script>admin()</script>
+			</ul>
+		</div>
+		<div id="pass">
+			<script>object()</script>
+		</div>
+	</div>
+</body>
+</html>

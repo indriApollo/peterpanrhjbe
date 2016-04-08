@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/api.js"></script>
+		<script type="text/javascript" src="js/shared.js"></script>
+		<script type="text/javascript">
+			function saveSessionUser() {
+				var token = saveSessionToken();
+				api.getUser(token, function(r) {
+					sessionStorage.setItem("uid",r.uid);
+					sessionStorage.setItem("uname",r.uname);
+					sessionStorage.setItem("utitle",r.utitle);
+					sessionStorage.setItem("email",r.email);
+					sessionStorage.setItem("privlvl",r.privlvl);
+					window.location.href = "index.html";
+				});
+			}
+		</script>
+		<style type="text/css">
+			.loading {
+				margin-left: 40%;
+				width: 20%;
+				height: auto;
+				margin-top: 30vh;
+			}
+		</style>
+	</head>
+	<body>
+		<img class="loading" src="img/loading.gif"> <!--TODO replace with cool css3 animation-->
+		<script>saveSessionUser()</script>
+	</body>
+</html>

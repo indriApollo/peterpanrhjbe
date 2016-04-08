@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,900' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+
+		function dates() {
+			var dates = document.getElementById("dates");
+			api.getDates(function(r) {
+				var ul = document.createElement("ul");
+				for(var i in r) {
+					var li = document.createElement("li");
+						li.innerHTML = "<p>"+r[i].eudate+" - "+r[i].htime+"H</p>complet</p>";
+					ul.appendChild(li);
+				}
+				dates.appendChild(ul);
+			});
+		}
+
+		function to_reservations(cid,eudate) {
+			sessionStorage.setItem("cid",cid);
+			sessionStorage.setItem("eudate",eudate);
+			window.location.href = "reservate.html";
+		}
+	</script>
+	<title>HOME</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(false)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="toptext">
+			<p>
+				La Royale Harmonie de Jodoigne et le P-A’ss THEATRE vous invitent à voler avec eux vers le Pays Imaginaire...
+			</p>
+		</div>
+		<div id="dates">
+			<script>dates()</script>
+		</div>
+		<img class="banner" src="img/banner.png">
+		<div class="rcont">
+			<div class="intro">
+				<p>
+					Avec Peter Pan, Wendy, et ses deux frères ! Montez à bord du Jolly Roger et affrontez Crochet, Mouche et les pirates ! Partez sur le sentier de la guerre avec Lili la tigresse et toute sa tribu ! Et devenez l'ami des Enfants Perdus!
+				</p>
+				<p>
+					Dans de magnifiques costumes, quinze comédiens et trente musiciens jouent, dansent, chantent, se battent et volent dans de sublimes décors. Cette énergique troupe s'en donne à coeur joie pour embarquer petits et grands dans les aventures haletantes de Peter Pan.
+				</p>
+				<p>
+					Adapté et mis en scène par Pierre-Alexandre Noupré d’après le conte de J.M. Barrie et sous la baguette de Christophe Lacroix, ce spectacle,tantôt émouvant, tantôt drôle et plein d'énergie, touche aussi bien les adultes que les enfants ! 
+				</p>
+				<p>Rires, émerveillement et émotion garantis !</p>
+				<p>Informations : 0474/84.23.17</p>
+				<p>Veuillez cliquer sur la date de votre choix.</p>
+				<br/>
+				<ul>
+					<li>&#10148 Place adulte : 17€</li>
+					<li>&#10148 Place -12 ans : 7€</li>
+				</ul>
+				<p style="font-style: italic; margin-top: 10px;">Un problème avec le site ? Contactez <a href="mailto:postmaster@rhjodoigne.be">postmaster@rhjodoigne.be</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

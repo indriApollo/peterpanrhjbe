@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+		function modifyDetails() {
+			var token = sessionStorage.getItem("token");
+			var uname = document.getElementById("uname").value.trim();
+			var utitle = document.getElementById("utitle").value;
+			api.changeUserDetails(uname,utitle,token, function(r) {
+				sessionStorage.setItem("uname",r.uname);
+				sessionStorage.setItem("utitle",r.utitle);
+				alert("Vos modifications ont été sauvegardées");
+			})
+		}
+
+		function details() {
+			document.getElementById("uname").value = sessionStorage.getItem("uname");
+			document.getElementById("utitle").value = sessionStorage.getItem("utitle");
+		}
+	</script>
+	<title>Panneau d'utilisateur | Détails utilisateur</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(true)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="leftmenu">
+			<ul id="menul">
+				<li><a href="userpanel_reservations.html">Réservations</a></li>
+				<li><b><a href="userpanel_details.html">Détails</a></b></li>
+				<li><a href="userpanel_pass.html">Mot de passe</a></li>
+				<script>admin()</script>
+			</ul>
+		</div>
+		<div class="details">
+			<h1>Détails de l'utilisateur</h1>
+			<hr>
+			<p>Nom & prénom</p>
+			<input type="text" id="uname" value="">
+			<br/>
+			<p>Civilité</p>
+			<select id="utitle">
+				<option value="0">M.</option>
+				<option value="1">Mme</option>
+			</select>
+			<br/>
+			<button onclick="modifyDetails()">Modifier</button>
+			<script>details()</script>
+		</div>
+	</div>
+</body>
+</html>

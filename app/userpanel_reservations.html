@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+		function reservations() {
+			var token = sessionStorage.getItem("token");
+			var uid = sessionStorage.getItem("uid");
+			api.getReservations(uid,"*",token, function(r){
+				if(r.length==0) {
+					document.getElementById("blank").style.display = "inline";
+				} else {
+					var table = document.getElementById("reservationsTable");
+					for(var i in r) {
+						var tr = document.createElement("tr");
+						//nAdults,nChildren,sum,cdate
+						var td = document.createElement("td");
+						td.textContent = r[i].eudate;
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.textContent = r[i].nAdults;
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.textContent = r[i].nChildren;
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.textContent = r[i].sum+" €";
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.rid = r[i].rid;
+						td.onclick = function () {
+							sendTicket(this.rid);
+						}
+						td.innerHTML = "<button>renvoyer le ticket</button>";
+						tr.appendChild(td);
+
+						table.appendChild(tr);
+					}
+				}
+			});
+		}
+
+		function sendTicket(rid) {
+
+			var token = sessionStorage.getItem("token");
+
+			api.sendTicket(rid,token,function(r){
+				alert("Votre ticket a été envoyé.");
+			});
+		}
+	</script>
+	<title>Panneau d'utilisateur | Réservations</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(true)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="leftmenu">
+			<ul id="menul">
+				<li><b><a href="userpanel_reservations.html">Réservations</a></b></li>
+				<li><a href="userpanel_details.html">Détails</a></li>
+				<li><a href="userpanel_pass.html">Mot de passe</a></li>
+				<script>admin()</script>
+			</ul>
+		</div>
+		<div class="reservations">
+			<h1>Réservations</h1>
+			<hr>
+			<table id="reservationsTable">
+				<tr>
+					<th>DATE</th>
+					<th>Adultes</th>
+					<th>Enfants</th>
+					<th>Montant</th>
+					<th></th>
+				</tr>
+			</table>
+			<p id="blank" style="display:none;">Il n'y a aucune réservation à afficher</p>
+			<script>reservations()</script>
+		</div>
+	</div>
+</body>
+</html>

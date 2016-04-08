@@ -1,0 +1,253 @@
+p,h1,td,th,a,button,li {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #446CB3;
+}
+
+button,.loginp img,#dates li:hover, #topmenu img:hover{
+	cursor: pointer;
+}
+
+#topmenu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	box-shadow: 0 0 30px 5px #999;
+}
+
+.logincnt ,#main{
+	margin: auto;
+	width: 90%;
+	max-width: 1200px;
+}
+
+#main {
+	margin-top: 100px;
+}
+
+#loginp {
+	float: left;
+}
+
+#loginp p {
+	font-size: 28px;
+	font-weight: 300;
+	padding-top: 16px;
+	float: left;
+}
+
+#loginp button {
+	height: 50px;
+	margin-top: 5px;
+	margin-right: 15px;
+	font-size: 30px;
+}
+
+.logo {
+	margin-top: 5px;
+	float: right;
+	height: 50px;
+	width: auto;
+}
+
+.banner, .map{
+	margin-top: 15px;
+	height: auto;
+	width: auto;
+	float: left;
+}
+
+.map {
+	max-width: 50%;
+}
+
+.banner {
+	clear: both;
+	max-width: 50%;
+	margin-bottom: 15px;
+}
+
+#maptable { 
+	border-collapse: separate;
+	border-spacing: 2px;
+	width: 40vw;
+	max-width: 500px;
+	height: 41vw;
+	max-height: 510px;
+}
+
+#maptable td{
+	border-radius: 5px;
+	width: 1%;
+	height: 1%;
+}
+
+#dates, .form, .intro {
+	margin-top: 15px;
+}
+
+.rcont {
+	float: right;
+	max-width: 50%;
+}
+
+.form {
+	float: left;
+	margin-left: 2%;
+	max-width: 48%;
+}
+
+#dates li:hover {
+	background-color: #6BB9F0;
+}
+
+#dates li {
+	background-color: #22A7F0;
+	color: white;
+	padding: 5px;
+	font-size: 2vw;
+	text-align: center;
+	width: calc(33% - 20px);
+	float: left;
+}
+
+#dates li:nth-child(2) {
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.panelsIcon, .logout {
+	height: 30px;
+	width: 30px;
+	margin-top: 15px;
+	float: left;
+	margin-left: 5px;
+}
+
+.freeplace, .lsquare1 {
+	background-color: #F27935;
+}
+.reservedplace, .lsquare2 {
+	background-color: gray;
+}
+
+.form input {
+	margin-bottom: 15px;
+}
+
+.form button {
+	height: 50px;
+	font-size: 25px;
+	font-weight: 700;
+}
+
+.form hr {
+	border: 1px solid gray;
+}
+
+.lsquare1, .lsquare2, .lsquare3 {
+	height: 30px;
+	width: 30px;
+	border-radius: 5px;
+}
+
+#legend {
+	border-collapse: separate;
+	border-spacing: 5px;
+	font-size: 20px;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+.newuser-form {
+	margin-top: 100px;
+}
+
+.newuser-form p,.newuser-form button {
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+
+.newuser-form button {
+	float: right;
+}
+
+.leftmenu {
+	float: left;
+	margin-right: 5%;
+}
+
+.leftmenu li {
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	box-shadow: 0 0 5px 2px #999;
+	font-size: 22px;
+}
+
+.reservations {
+	float: left;
+	max-width: 60%;
+}
+
+#reservationsTable td,#reservationsTable th {
+	width: 20%;
+	text-align: center;
+}
+
+#reservationsTable th {
+	font-weight: 700;
+}
+
+#reservationsTable {
+	width: 50vw;
+}
+
+.frame {
+	width: 60%;
+	min-height: 400px;
+}
+
+.intro, .toptext {
+	font-size: 22px;
+	margin-bottom: 15px;
+}
+
+.toptext {
+	font-weight: 900;
+	text-align: center;
+	font-style: italic;
+}
+
+.intro {
+	margin-top: 0;
+}
+
+.intro p {
+	padding: 15px;
+}
+
+.intro li {
+	margin-left: 10px;
+}
+
+.details button{
+	float: right;
+}
+
+.details input {
+	margin-bottom: 15px;
+}
+
+#topmsg {
+	font-size: 22px;
+	font-weight: 700;
+}

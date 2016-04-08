@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+		function reservations() {
+			var uid = "*";
+			var cid = document.getElementById("concertSelect").value;
+			var token = sessionStorage.getItem("token");
+			api.getReservations(uid,cid,token, function(r){
+				var table = document.getElementById("reservationsTable");
+				table.innerHTML = "<tr><th>Email</th><th>Enfants</th><th>Adultes</th><th>Montant</th></tr>"; //clear
+				var aTotal = 0;
+				var cTotal = 0;
+				var sTotal = 0;
+				for(var i in r) {
+					var tr = document.createElement("tr");
+	
+					var td = document.createElement("td");
+					td.textContent = r[i].email;
+					td.uid = r[i].uid;
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = r[i].nChildren;
+					aTotal += parseInt(r[i].nChildren);
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = r[i].nAdults;
+					cTotal += parseInt(r[i].nAdults);
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = r[i].sum+" €";
+					sTotal += parseFloat(r[i].sum);
+					tr.appendChild(td);
+
+					table.appendChild(tr);
+				}
+				if(sTotal) {
+					var tr = document.createElement("tr");
+					tr.className = "total";
+
+					var td = document.createElement("td");
+					td.textContent = "TOTAL : ";
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = aTotal;
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = cTotal;
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.textContent = sTotal+" €";
+					tr.appendChild(td);
+
+					table.appendChild(tr);
+				}
+			});
+		}
+
+		function listConcerts() {
+			var cs = document.getElementById("concertSelect"); 
+			api.getDates(function(r) {
+				for(var i in r) {
+					var option = document.createElement("option");
+					option.value = r[i].cid;
+					option.textContent = r[i].eudate;
+					cs.appendChild(option);
+				}
+			});
+		}
+
+		function getCSV(el) {
+			el.onclick = null;
+			el.textContent = "Création du csv...";
+
+			var token = sessionStorage.getItem("token");
+			api.request("report",token,null,"GET",function(r) {
+				var a = document.createElement("a");
+				a.setAttribute("href",'data:application/csv;charset=utf-8,' + encodeURIComponent(r) );
+				a.setAttribute("target","_blank");
+				var d = new Date();
+				var fname = "RapportRHJ_"+d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear()+"_"+d.getHours()+"-"+d.getMinutes()+"-"+d.getSeconds()+".csv";
+				a.setAttribute("download",fname);
+				a.textContent = "Télécharger rapport";
+				var cont = el.parentNode;
+				cont.innerHTML = ""; //clear
+				cont.appendChild(a);
+			});
+		}
+	</script>
+	<title>Administration | Réservations</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(true)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="leftmenu">
+			<ul id="menul">
+				<li><b><a href="adminpanel_reservations.html">Réservations</a></b></li>
+				<li><a href="userpanel_reservations.html">Retour utilisateur</a></li>
+			</ul>
+		</div>
+		<div class="reservations">
+			<h1>Réservations</h1>
+			<select id="concertSelect"></select>
+			<button onclick="reservations()">Afficher</button>
+			<span><button onclick="getCSV(this)">Rapport complet</button></span>
+			<script>listConcerts()</script>
+			<hr>
+			<table id="reservationsTable">
+				<tr>
+					<th>Email</th>
+					<th>Enfants</th>
+					<th>Adultes</th>
+					<th>Montant</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

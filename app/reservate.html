@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/shared.js"></script>
+	<script type="text/javascript">
+
+		function reservate(el) {
+
+			cid = sessionStorage.getItem("cid");
+			token = sessionStorage.getItem("token");
+			nChildren = document.getElementById("nChildren").value;
+			nAdults = document.getElementById("nAdults").value;
+			n = nChildren+nAdults;
+
+			if(n<=0) alert("Veuillez sélectionner au moins une place.");
+			else {
+				el.setAttribute("readonly","readonly");
+				el.onclick = null;
+				el.textContent = "Veuillez patienter ...";
+				api.newReservation(cid,nChildren,nAdults,token);
+			}
+		}
+
+		function showdate() {
+
+			var eudate = sessionStorage.getItem("eudate");
+			var h1 = document.getElementById("dateh");
+			h1.textContent = "Concert du "+eudate;
+		}
+
+		function showFreePlaces() {
+
+			var cid = sessionStorage.getItem("cid");
+
+			var table = document.getElementById("maptable");
+			api.getFreePlacesXY(cid, function(r){
+				var i = 0;
+				for (var y = 1; y <= r.ny ; y++) {
+					var tr = document.createElement("tr");
+					for(var x = 1; x <= r.nx ; x++){
+						var td = document.createElement("td");
+						var place = r.freePlaces[i];
+						if(place.x==x && place.y==y) {
+							td.setAttribute("title","Libre : "+place.pname);
+							td.className = "freeplace";
+							i++;
+						} else {
+							td.setAttribute("title","Réservé");
+							td.className = "reservedplace";
+						}
+						td.id = "x"+x+"y"+y;
+						tr.appendChild(td);
+					}
+					table.appendChild(tr);
+				}
+			});
+		}
+
+		function pHandler(el) {
+			if(el.value < 0) el.value=0;
+		}
+
+	</script>
+	<title>RESERVATION</title>
+</head>
+<body>
+	<div id="topmenu">
+		<div class="logincnt">
+			<div id="loginp">
+				<script>user(true)</script>
+			</div>
+			<img src="img/rhjlogo.svg" onclick="toHome()" class="logo">
+		</div>
+	</div>
+	<div id="main">
+		<div class="map">
+			<table id="maptable"></table>
+			<script>showFreePlaces()</script>
+		</div>
+		<div class="form">
+			<div id="topmsg">
+				<p>Veuillez choisir le nombre de places.</p>
+				<p>Les premières places disponibles sur un même rang vous seront attribuées.</p>
+			</div>
+			<br/>
+			<h1 id="dateh"><script>showdate()</script></h1>
+			<hr>
+			<h1>Nombre d'enfants (-12 ans)</h1>
+			<input type="number" id="nChildren" value="0" onchange="pHandler(this)">
+			<br/>
+			<h1>Nombre d'adultes</h1>
+			<input type="number" id="nAdults" value="0" onchange="pHandler(this)">
+			<br/>
+			<a href="https://documents.sofort.com/sb/information-client-be/">
+				<img title="Information sur le paiement" src="img/sofort.png">
+			</a>
+			<br/>
+			<button onclick="reservate(this)">Payer ma réservation</button>
+			<br/>
+			<table id="legend">
+				<tr>
+					<td class="lsquare1"></td>
+					<td class="ltext">disponible</td>
+				</tr>
+				<tr>
+					<td class="lsquare2"></td>
+					<td class="ltext">réservé</td>
+				</tr>
+			</table>
+			<p style="font-style: italic; margin-top: 10px;">Un problème avec le site ? Contactez <a href="mailto:postmaster@rhjodoigne.be">postmaster@rhjodoigne.be</a></p>
+		</div>
+	</div>
+</body>
+</html>
